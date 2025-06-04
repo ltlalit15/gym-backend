@@ -8,7 +8,7 @@ const db = mysql.createPool({
     port: 32521,                    
     user: 'root',                   
     password: 'yNhhVAiBMtCVSMqAqIsKDgWDNqhGvRsr',  
-    database: 'gym',                
+    database: 'railway',                
     multipleStatements: true       
 });
 
