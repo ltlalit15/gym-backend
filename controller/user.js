@@ -168,12 +168,7 @@ const checkGoogleDetails = async (req, res) => {
         const updateFields = [];
         const values = [];
 
-        // If googleSignIn is JWT token, handle the value and save (limit to 512 chars)
-        const googleSignInToken = googleSignIn && typeof googleSignIn == "string" ? googleSignIn.substring(0, 1024) : null; // Limit token size to 512 characters
-
-        // If facebookSignIn is JWT token, handle the value and save (limit to 512 chars)
-        const facebookSignInToken = facebookSignIn && typeof facebookSignIn == "string" ? facebookSignIn.substring(0, 1024) : null; // Limit token size to 512 characters
-
+       
         if (googleSignIn !== undefined) {
             updateFields.push("googleSignIn = ?");
             values.push(googleSignIn);
