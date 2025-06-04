@@ -229,12 +229,21 @@ const updateMember = async (req, res) => {
         firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
         club, golfSimulator, trainer, joiningDate, salesRepresentative,
         sourcePromotion, referredBy, occupation, organization, involvementType,
-        email, cell, workPhone, streetAddress, city, state, zipCode,
+        email, password, cell, workPhone, streetAddress, city, state, zipCode,
         emergencyName, emergencyRelationship, emergencyCell, emergencyEmail,
         medicalInformation, status
     } = req.body;
 
     let imageUrl = '';
+    let hashedPassword = '';
+
+
+    // If password is provided, hash it
+        if (password) {
+            const bcrypt = require('bcrypt');
+            const saltRounds = 10;
+            hashedPassword = await bcrypt.hash(password, saltRounds);
+        }   
 
     if (req.files?.image) {
         try {
@@ -254,7 +263,7 @@ const updateMember = async (req, res) => {
             UPDATE member SET
                 firstName = ?, lastName = ?, dateOfBirth = ?, gender = ?, keyFob = ?, tags = ?, note = ?,
                 club = ?, golfSimulator = ?, trainer = ?, joiningDate = ?, salesRepresentative = ?, sourcePromotion = ?,
-                referredBy = ?, occupation = ?, organization = ?, involvementType = ?, email = ?, cell = ?, workPhone = ?,
+                referredBy = ?, occupation = ?, organization = ?, involvementType = ?, email = ?, password = ?, cell = ?, workPhone = ?,
                 streetAddress = ?, city = ?, state = ?, zipCode = ?, emergencyName = ?, emergencyRelationship = ?, emergencyCell = ?,
                 emergencyEmail = ?, medicalInformation = ?, status = ?, image = ?
             WHERE id = ?
@@ -262,7 +271,7 @@ const updateMember = async (req, res) => {
             firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
             club, golfSimulator, trainer, joiningDate, salesRepresentative,
             sourcePromotion, referredBy, occupation, organization, involvementType,
-            email, cell, workPhone, streetAddress, city, state, zipCode,
+            email, hashedPassword || "", cell, workPhone, streetAddress, city, state, zipCode,
             emergencyName, emergencyRelationship, emergencyCell, emergencyEmail,
             medicalInformation, status, imageUrl, id
         ]);
