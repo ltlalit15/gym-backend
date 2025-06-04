@@ -60,7 +60,7 @@ const memberLogin = async (req, res) => {
 const addMember = async (req, res) => {
     try {
         const {
-            firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
+            firstName, lastName, dateOfBirth, gender, note,
             club, golfSimulator, trainer, joiningDate, salesRepresentative,
             sourcePromotion, referredBy, occupation, organization, involvementType,
             email, password, cell, workPhone, streetAddress, city, state, zipCode,
@@ -94,15 +94,15 @@ const addMember = async (req, res) => {
 
         const [insertResult] = await db.query(`
             INSERT INTO member (
-                firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
+                firstName, lastName, dateOfBirth, gender, note,
                 club, golfSimulator, trainer, joiningDate, salesRepresentative,
                 sourcePromotion, referredBy, occupation, organization, involvementType,
                 email, password, cell, workPhone, streetAddress, city, state, zipCode,
                 emergencyName, emergencyRelationship, emergencyCell, emergencyEmail,
                 medicalInformation, status, image
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, [
-            firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
+            firstName, lastName, dateOfBirth, gender, note,
             club, golfSimulator, trainer, joiningDate, salesRepresentative,
             sourcePromotion, referredBy, occupation, organization, involvementType,
             email, hashedPassword || "", cell, workPhone, streetAddress, city, state, zipCode,
@@ -226,7 +226,7 @@ const getMemberById = async (req, res) => {
 const updateMember = async (req, res) => {
     const { id } = req.params;
     const {
-        firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
+        firstName, lastName, dateOfBirth, gender, note,
         club, golfSimulator, trainer, joiningDate, salesRepresentative,
         sourcePromotion, referredBy, occupation, organization, involvementType,
         email, password, cell, workPhone, streetAddress, city, state, zipCode,
@@ -261,14 +261,14 @@ const updateMember = async (req, res) => {
     try {
         const [updateResult] = await db.query(`
             UPDATE member SET
-                firstName = ?, lastName = ?, dateOfBirth = ?, gender = ?, keyFob = ?, tags = ?, note = ?,
+                firstName = ?, lastName = ?, dateOfBirth = ?, gender = ?, note = ?,
                 club = ?, golfSimulator = ?, trainer = ?, joiningDate = ?, salesRepresentative = ?, sourcePromotion = ?,
                 referredBy = ?, occupation = ?, organization = ?, involvementType = ?, email = ?, password = ?, cell = ?, workPhone = ?,
                 streetAddress = ?, city = ?, state = ?, zipCode = ?, emergencyName = ?, emergencyRelationship = ?, emergencyCell = ?,
                 emergencyEmail = ?, medicalInformation = ?, status = ?, image = ?
             WHERE id = ?
         `, [
-            firstName, lastName, dateOfBirth, gender, keyFob, tags, note,
+            firstName, lastName, dateOfBirth, gender, note,
             club, golfSimulator, trainer, joiningDate, salesRepresentative,
             sourcePromotion, referredBy, occupation, organization, involvementType,
             email, hashedPassword || "", cell, workPhone, streetAddress, city, state, zipCode,
