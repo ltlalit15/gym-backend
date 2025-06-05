@@ -1,5 +1,5 @@
 const express = require('express');
-const { addMeasurement, getAllMeasurements } = require('../controller/measurement');
+const { addMeasurement, getAllMeasurements, updateMeasurement } = require('../controller/measurement');
 const authMiddleware = require('../middleware/authMiddleware');
 const multer = require('multer');
 const path = require('path');
@@ -21,6 +21,7 @@ const router = express.Router();
 
 router.post('/addMeasurement', addMeasurement);
 router.get('/getAllMeasurements', getAllMeasurements);
+router.patch('/updateMeasurement/:id', updateMeasurement);
 
 
 module.exports = router;    
