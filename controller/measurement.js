@@ -127,6 +127,79 @@ const addMeasurement = async (req, res) => {
 };
 
 
+const updateMeasurement = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // if (!id) return res.status(400).json({ status: false, message: "Measurement ID is required." });
+
+    let imageUrl = req.body.image || ''; // Default to existing image
+
+    if (req.files?.image) {
+      try {
+        const result = await cloudinary.uploader.upload(
+          req.files.image.tempFilePath,
+          { folder: 'member_measurements' }
+        );
+        imageUrl = result.secure_url;
+      } catch (uploadErr) {
+        console.error("Image upload error:", uploadErr);
+        return res.status(500).json({ status: false, message: "Image upload failed." });
+      }
+    }
+
+    const {
+      memberId, userId, gender, age, measurementDate, notes,
+      height_cm, weight_kg, bp_systolic, bp_diastolic, heartRate, vo2max,
+      weight, shoulders, bust, arm, chest, waist, hips, gluteals,
+      upperThigh, midThigh, calf, bicep, tricep, subscapular, iliacCrest,
+      bodyFat, fatMass, leanMass, bmi, maxOxygenUptake,
+      shoulders_mm, chest_mm, waist_mm, hips_mm, midThigh_mm,
+      calf_mm, bicepFlexed_mm, bicepRelaxed_mm,
+      tricep_avg, bicep_avg, subscapular_avg, chest_avg, suprailiac_avg,
+      abdominal_avg, thigh_avg, calf_avg, supraspinale_avg, midAxilla_avg
+    } = req.body;
+
+    await db.query(
+      `UPDATE measurements SET
+        memberId = ?, userId = ?, image = ?, gender = ?, age = ?, measurementDate = ?, notes = ?,
+        height_cm = ?, weight_kg = ?, bp_systolic = ?, bp_diastolic = ?, heartRate = ?, vo2max = ?,
+        weight = ?, shoulders = ?, bust = ?, arm = ?, chest = ?, waist = ?, hips = ?, gluteals = ?,
+        upperThigh = ?, midThigh = ?, calf = ?, bicep = ?, tricep = ?, subscapular = ?, iliacCrest = ?,
+        bodyFat = ?, fatMass = ?, leanMass = ?, bmi = ?, maxOxygenUptake = ?,
+        shoulders_mm = ?, chest_mm = ?, waist_mm = ?, hips_mm = ?, midThigh_mm = ?,
+        calf_mm = ?, bicepFlexed_mm = ?, bicepRelaxed_mm = ?,
+        tricep_avg = ?, bicep_avg = ?, subscapular_avg = ?, chest_avg = ?, suprailiac_avg = ?,
+        abdominal_avg = ?, thigh_avg = ?, calf_avg = ?, supraspinale_avg = ?, midAxilla_avg = ?
+      WHERE id = ?`,
+      [
+        memberId, userId, imageUrl, gender, age, measurementDate, notes,
+        height_cm, weight_kg, bp_systolic, bp_diastolic, heartRate, vo2max,
+        weight, shoulders, bust, arm, chest, waist, hips, gluteals,
+        upperThigh, midThigh, calf, bicep, tricep, subscapular, iliacCrest,
+        bodyFat, fatMass, leanMass, bmi, maxOxygenUptake,
+        shoulders_mm, chest_mm, waist_mm, hips_mm, midThigh_mm,
+        calf_mm, bicepFlexed_mm, bicepRelaxed_mm,
+        tricep_avg, bicep_avg, subscapular_avg, chest_avg, suprailiac_avg,
+        abdominal_avg, thigh_avg, calf_avg, supraspinale_avg, midAxilla_avg,
+        id
+      ]
+    );
+
+    const [rows] = await db.query(`SELECT * FROM measurements WHERE id = ?`, [id]);
+    const updatedData = rows[0];
+    updatedData.image = imageUrl ? [imageUrl] : [];
+
+    res.status(200).json({
+      status: true,
+      message: 'Measurement updated successfully',
+      data: updatedData
+    });
+
+  } catch (err) {
+    console.error("Update error:", err);
+    res.status(500).json({ status: false, message: err.message });
+  }
+};
 
 
 
@@ -134,8 +207,7 @@ const addMeasurement = async (req, res) => {
 
 
 
-
-module.exports = { addMeasurement, getAllMeasurements };
+module.exports = { addMeasurement, getAllMeasurements, updateMeasurement };
 
 
 
