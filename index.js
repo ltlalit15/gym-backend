@@ -47,6 +47,7 @@ const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
 const deviceRoutes = require('./routes/deviceRoutes'); 
 const checkInLogRoutes = require('./routes/checkInLogRoutes');
 const healthLogRoutes = require('./routes/healthLogRoutes');
+const alertsRoutes = require('./routes/alertsRoutes');
 
 const db = require('./config');
 const app = express();
@@ -141,6 +142,7 @@ app.use('/api/emailTemplate', emailTemplateRoutes);
 app.use('/api/device', deviceRoutes);
 app.use('/api/checkInLog', checkInLogRoutes);
 app.use('/api/healthLog', healthLogRoutes);
+app.use('/api/alerts', alertsRoutes);
 
 
 
