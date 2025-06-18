@@ -53,6 +53,7 @@ const paymentRoutes = require('./routes/paymentRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const facilityRoutes = require('./routes/facilityRoutes');
+const facilityCategoryRoutes = require('./routes/facilityCategoryRoutes');
 
 const db = require('./config');
 const app = express();
@@ -153,6 +154,7 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/service', serviceRoutes);
 app.use('/api/facility', facilityRoutes);
+app.use('/api/facilityCategory', facilityCategoryRoutes);
 
 
 
