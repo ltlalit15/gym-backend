@@ -44,6 +44,7 @@ const rosterRoutes = require('./routes/rosterRoutes');
 const taskAutomationRoutes = require('./routes/taskAutomationRoutes');
 const smsTemplateRoutes = require('./routes/smsTemplateRoutes');
 const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
+const deviceRoutes = require('./routes/deviceRoutes'); 
 
 const db = require('./config');
 const app = express();
