@@ -135,6 +135,7 @@ app.use('/api/roster', rosterRoutes);
 app.use('/api/taskAutomation', taskAutomationRoutes);
 app.use('/api/smsTemplate', smsTemplateRoutes);
 app.use('/api/emailTemplate', emailTemplateRoutes);
+app.use('/api/device', deviceRoutes);
 
 
 
