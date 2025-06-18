@@ -54,6 +54,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const facilityRoutes = require('./routes/facilityRoutes');
 const facilityCategoryRoutes = require('./routes/facilityCategoryRoutes');
+const serviceCategoryRoutes = require('./routes/serviceCategoryRoutes');
 
 const db = require('./config');
 const app = express();
@@ -155,6 +156,7 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/service', serviceRoutes);
 app.use('/api/facility', facilityRoutes);
 app.use('/api/facilityCategory', facilityCategoryRoutes);
+app.use('/api/serviceCategory', serviceCategoryRoutes);
 
 
 
