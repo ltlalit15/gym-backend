@@ -45,6 +45,7 @@ const taskAutomationRoutes = require('./routes/taskAutomationRoutes');
 const smsTemplateRoutes = require('./routes/smsTemplateRoutes');
 const emailTemplateRoutes = require('./routes/emailTemplateRoutes');
 const deviceRoutes = require('./routes/deviceRoutes'); 
+const checkInLogRoutes = require('./routes/checkInLogRoutes');
 
 const db = require('./config');
 const app = express();
@@ -137,6 +138,7 @@ app.use('/api/taskAutomation', taskAutomationRoutes);
 app.use('/api/smsTemplate', smsTemplateRoutes);
 app.use('/api/emailTemplate', emailTemplateRoutes);
 app.use('/api/device', deviceRoutes);
+app.use('/api/checkInLog', checkInLogRoutes);
 
 
 
