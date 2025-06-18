@@ -49,6 +49,7 @@ const checkInLogRoutes = require('./routes/checkInLogRoutes');
 const healthLogRoutes = require('./routes/healthLogRoutes');
 const alertsRoutes = require('./routes/alertsRoutes');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 const db = require('./config');
 const app = express();
@@ -145,6 +146,7 @@ app.use('/api/checkInLog', checkInLogRoutes);
 app.use('/api/healthLog', healthLogRoutes);
 app.use('/api/alerts', alertsRoutes);
 app.use('/api/subscription', subscriptionRoutes);
+app.use('/api/payment', paymentRoutes);
 
 
 
