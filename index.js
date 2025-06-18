@@ -50,6 +50,7 @@ const healthLogRoutes = require('./routes/healthLogRoutes');
 const alertsRoutes = require('./routes/alertsRoutes');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 const db = require('./config');
 const app = express();
@@ -147,6 +148,7 @@ app.use('/api/healthLog', healthLogRoutes);
 app.use('/api/alerts', alertsRoutes);
 app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/category', categoryRoutes);
 
 
 
