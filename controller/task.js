@@ -47,9 +47,10 @@ const addTask = async (req, res) => {
 const getAllTask = async (req, res) => {
   try {
     const [task] = await db.query(`
-      SELECT tasks.*, member.firstName, member.lastName
+      SELECT tasks.*, member.firstName, member.lastName, user.fullName
       FROM tasks
       JOIN member ON tasks.memberId = member.id
+      JOIN user ON tasks.assignedTo = user.id
     `);
 
     res.status(200).json({
