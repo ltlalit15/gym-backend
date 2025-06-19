@@ -38,12 +38,13 @@ const addCallLog = async (req, res) => {
 
 
 
-  const getAllCallLogs = async (req, res) => {
+ const getAllCallLogs = async (req, res) => {
   try {
     const [logs] = await db.query(`
-      SELECT calllog.*, member.firstName, member.lastName
+      SELECT calllog.*, member.firstName, member.lastName, user.fullName
       FROM calllog
       JOIN member ON calllog.memberId = member.id
+      JOIN user ON calllog.caller = user.id
     `);
 
     res.status(200).json({ status: true, callLogs: logs });
