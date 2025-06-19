@@ -11,6 +11,8 @@ const nodemailer = require('nodemailer');
 const addService = async (req, res) => {
   const {
     currentMember,
+    serviceName,
+    serviceCategoryId,
     casual,
     servicePack,
     benefitType,
@@ -24,6 +26,8 @@ const addService = async (req, res) => {
     const [insertResult] = await db.query(
       `INSERT INTO services (
         currentMember,
+        serviceName,
+        serviceCategoryId,
         casual,
         servicePack,
         benefitType,
@@ -31,9 +35,11 @@ const addService = async (req, res) => {
         showFee,
         bookableOnline,
         groupBooking
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         currentMember,
+        serviceName,
+        serviceCategoryId,
         casual,
         servicePack,
         benefitType,
@@ -60,7 +66,12 @@ const addService = async (req, res) => {
 
 const getAllServices = async (req, res) => {
   try {
-    const [rows] = await db.query(`SELECT * FROM services`);
+    const query = `
+      SELECT services.*, servicecategories.categoryName
+      FROM services
+      JOIN servicecategories ON services.serviceCategoryId = servicecategories.id
+    `;
+    const [rows] = await db.query(query);
     res.json({
       status: true,
       message: "All services fetched successfully",
@@ -70,6 +81,7 @@ const getAllServices = async (req, res) => {
     res.status(500).json({ status: false, message: error.message });
   }
 };
+
 
 
 
@@ -97,6 +109,8 @@ const updateService = async (req, res) => {
   const { id } = req.params;
   const {
     currentMember,
+    serviceName,
+    serviceCategoryId,
     casual,
     servicePack,
     benefitType,
@@ -110,6 +124,8 @@ const updateService = async (req, res) => {
     await db.query(
       `UPDATE services SET 
         currentMember = ?, 
+        serviceName = ?,
+        serviceCategoryId = ?,
         casual = ?, 
         servicePack = ?, 
         benefitType = ?, 
@@ -120,6 +136,8 @@ const updateService = async (req, res) => {
       WHERE id = ?`,
       [
         currentMember,
+        serviceName,
+        serviceCategoryId,
         casual,
         servicePack,
         benefitType,
