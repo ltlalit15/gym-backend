@@ -34,12 +34,13 @@ const addNote = async (req, res) => {
   };
 
   
- const getAllNotes = async (req, res) => {
+  const getAllNotes = async (req, res) => {
   try {
     const [notes] = await db.query(`
-      SELECT notes.*, member.firstName, member.lastName
+      SELECT notes.*, member.firstName, member.lastName, user.fullname
       FROM notes
       JOIN member ON notes.memberId = member.id
+      JOIN user ON notes.userId = user.id
     `);
 
     res.status(200).json({
@@ -50,6 +51,7 @@ const addNote = async (req, res) => {
     res.status(500).json({ status: false, message: error.message });
   }
 };
+
 
 
 
