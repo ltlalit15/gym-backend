@@ -69,9 +69,10 @@ const addFileUpload = async (req, res) => {
  const getAllFileUpload = async (req, res) => {
   try {
     const [fileUpload] = await db.query(`
-      SELECT upload.*, member.firstName, member.lastName
+      SELECT upload.*, member.firstName, member.lastName, user.fullName
       FROM upload
       JOIN member ON upload.memberId = member.id
+      JOIN user ON upload.userId = user.id
     `);
 
     res.status(200).json({
@@ -83,6 +84,7 @@ const addFileUpload = async (req, res) => {
     res.status(500).json({ status: false, message: error.message });
   }
 };
+
 
   
 
